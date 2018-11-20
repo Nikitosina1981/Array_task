@@ -17,7 +17,7 @@ public class Solution
         Solution solution = new Solution();
         solution.countUntilRepeat(values);
         System.out.println(counter);
-        combinationsStorage.keySet().forEach(e->{System.out.println(e.toString());});
+       // combinationsStorage.keySet().forEach(e->{System.out.println(e.toString());});
     }
 
     public void countUntilRepeat(ArrayList<Integer> list)
