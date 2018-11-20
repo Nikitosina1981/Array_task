@@ -25,7 +25,7 @@ public class Solution
     }
 
     public static void countUntilRepeat()
-    { // Putting all combinations to storage until first match.
+    {
         ArrayList<Integer> tmp = new ArrayList<>();
         tmp.addAll(values);
         combinationsStorage.put(++counter,tmp); // put current combination to storage
