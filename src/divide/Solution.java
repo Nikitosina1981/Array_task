@@ -40,7 +40,11 @@ public class Solution
         }
         temp.set(maxValuePointer, 0.0); // set max value in list = 0
         double divideValue = (double)(temp.size()-maxValuePointer-1); // by how much we should divide max value
-        if (divideValue==0.0) divideValue = 1.0; //check to avoid zero divide error
+        if (divideValue==0.0)
+        {
+            System.out.println("Check countUntilRepeat - divide by zero!");
+            divideValue = 1.0; //check to avoid zero divide error
+        }
         while (++maxValuePointer<temp.size())
         {// spread divided max value on the rest of values in list
             temp.set(maxValuePointer, temp.get(maxValuePointer)+maxValue/divideValue);
