@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Solution
 { // init start values, counter and storage for combinations
     private ArrayList<Integer> values;
-    private HashMap<Integer, ArrayList<Integer>> combinationsStorage = new HashMap();
+    private HashMap<Integer, ArrayList<Integer>> combinationsStorage = new HashMap<>();
 
     public Solution(ArrayList<Integer> values)
     {
