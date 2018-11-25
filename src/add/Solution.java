@@ -7,12 +7,17 @@ import java.util.HashMap;
 
 public class Solution
 { // init start values, counter and storage for combinations
-    private ArrayList<Integer> values = new ArrayList<Integer>(Arrays.asList(2000000000, 0));
+    private ArrayList<Integer> values;
     private HashMap<Integer, ArrayList<Integer>> combinationsStorage = new HashMap();
+
+    public Solution(ArrayList<Integer> values)
+    {
+        this.values = values;
+    }
 
     public static void main(String[] args)
     {
-        Solution s1 = new Solution();
+        Solution s1 = new Solution(new ArrayList<Integer>(Arrays.asList(2000000000, 0)));
         while (!s1.combinationsStorage.containsValue(s1.values))
         {// generate combinations until first match
             s1.countUntilRepeat();
