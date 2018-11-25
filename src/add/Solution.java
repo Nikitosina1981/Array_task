@@ -2,50 +2,51 @@ package add;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Solution
 { // init start values, counter and storage for combinations
-    private static ArrayList<Integer> values = new ArrayList<Integer>(Arrays.asList(0, 5, 10, 0, 11, 14, 13, 4, 11, 8
-            , 8, 7, 1, 4, 12, 11));
-    private static Integer counter = 0;
-    private static HashMap<Integer, ArrayList<Integer>> combinationsStorage = new HashMap();
+    private ArrayList<Integer> values = new ArrayList<Integer>(Arrays.asList(2000000000, 0));
+    private HashMap<Integer, ArrayList<Integer>> combinationsStorage = new HashMap();
 
     public static void main(String[] args)
     {
-        while (!combinationsStorage.containsValue(values))
+        Solution s1 = new Solution();
+        while (!s1.combinationsStorage.containsValue(s1.values))
         {// generate combinations until first match
-            countUntilRepeat();
+            s1.countUntilRepeat();
         }
         // printing results
-        System.out.println("Total cycles: "+counter);
-        combinationsStorage.entrySet().forEach(e->{
-            if (e.getValue().equals(values)) System.out.println("Cycle length: "+(counter-e.getKey()+1));
+        System.out.println("Total cycles: "+s1.combinationsStorage.size());
+        s1.combinationsStorage.entrySet().forEach(e->{
+            if (e.getValue().equals(s1.values)) System.out.println("Cycle length: "+(s1.combinationsStorage.size()-e.getKey()+1));
         });
+        System.out.println(s1.values);
+        System.out.println(s1.combinationsStorage.toString());
     }
 
-    public static void countUntilRepeat()
+    private void countUntilRepeat()
     {
         ArrayList<Integer> tmp = new ArrayList<>();
         tmp.addAll(values);
-        combinationsStorage.put(++counter,tmp); // put current combination to storage
-        int maxValuePointer = 0;
-        int maxValue = Integer.MIN_VALUE;
-        for (int i = 0; i < values.size(); i++)
-        { // let's find maximum value & position
-            if (values.get(i)>maxValue)
-            {
-                maxValue = values.get(i);
-                maxValuePointer = i;
-            }
-        }
+        combinationsStorage.put(combinationsStorage.size(),tmp); // put current combination to storage
+        int maxValue = Collections.max(values); // Max in values
+        int maxValuePointer = values.indexOf(maxValue); // Index of max in values
         values.set(maxValuePointer, 0); // replace max value with 0 in list
-        while (maxValue>0)
-        {// spread max value according to task logic
-            if (++maxValuePointer==values.size()) maxValuePointer=0;
-            values.set(maxValuePointer, values.get(maxValuePointer)+1);
-            maxValue--;
+        int addToAll = maxValue/values.size(); // amount to add to each element in values
+        int rest = maxValue-addToAll*values.size(); // the rest to add after increasing by addToAll
+        int restEnd = 0; // How much elements should be increased by 1 from values start
+        int restStart = 0; // How much elements should be increased by 1 after maxValuePointer and up to values.size()
+        if (values.size()-maxValuePointer<=rest) restStart = rest - (values.size()-maxValuePointer-1);
+        if (restStart==0) restEnd = maxValuePointer+rest;
+        else restEnd = values.size();
+        for (int i = 0; i < values.size(); i++)
+        {// increasing values
+            int a;
+            if ((i < restStart)||(i <= restEnd && i > maxValuePointer)) a=1;
+            else a=0;
+            values.set(i,values.get(i)+addToAll+a);
         }
     }
-
 }
